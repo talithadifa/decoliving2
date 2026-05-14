@@ -22,20 +22,34 @@
     </script>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter',sans-serif; }
-        .hero-overlay { background: linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.1) 100%); }
+        body { font-family:'Inter',sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #0c1a3d 60%, #0f2855 100%); min-height:100vh; }
+        .navbar-glass { background:rgba(15,23,42,0.6); backdrop-filter:blur(20px); border-bottom:1px solid rgba(96,165,250,0.2); }
+        .hero-overlay { background: linear-gradient(90deg, rgba(15,23,42,0.92) 0%, rgba(30,27,75,0.75) 55%, rgba(12,26,61,0.2) 100%); }
         .fade-up { animation: fadeUp 0.7s ease-out both; }
         @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
         .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .cat-card:hover { background: #4361ee; color: white; }
-        .cat-card:hover svg, .cat-card:hover .cat-icon { color: white !important; fill: white; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(37,99,235,0.3); }
+        .glass-card { background:rgba(30,58,138,0.25); backdrop-filter:blur(12px); border:1px solid rgba(96,165,250,0.2); }
+        .cat-card { background:rgba(30,58,138,0.2); border:1px solid rgba(96,165,250,0.15); transition:all 0.3s; }
+        .cat-card:hover { background:linear-gradient(135deg,#2563eb,#0ea5e9); border-color:transparent; box-shadow:0 8px 32px rgba(37,99,235,0.4); }
+        .cat-card:hover svg, .cat-card:hover p { color:white !important; }
+        .btn-primary { background:linear-gradient(135deg,#2563eb,#0ea5e9); color:white; box-shadow:0 4px 24px rgba(37,99,235,0.4); }
+        .btn-primary:hover { opacity:0.9; transform:translateY(-1px); }
+        .btn-outline { background:rgba(255,255,255,0.08); border:2px solid rgba(96,165,250,0.4); color:#93c5fd; }
+        .btn-outline:hover { background:rgba(37,99,235,0.3); border-color:#60a5fa; color:white; }
+        .search-bar { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:white; border-radius:9999px; }
+        .search-bar::placeholder { color:rgba(255,255,255,0.5); }
+        .search-bar:focus { outline:none; background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.3); }
+        .dropdown-dark { background:#0f2855; border:1px solid rgba(96,165,250,0.25); box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+        .footer-dark { background:linear-gradient(180deg,#0a1628 0%,#060e1e 100%); border-top:1px solid rgba(96,165,250,0.15); }
+        ::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-track{background:#0f172a} ::-webkit-scrollbar-thumb{background:linear-gradient(#3b82f6,#0ea5e9);border-radius:3px}
+        .gradient-text { background:linear-gradient(135deg,#60a5fa,#22d3ee); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="text-slate-100">
 
     {{-- ===== NAVBAR ===== --}}
-    <nav class="bg-primary-500 shadow-lg sticky top-0 z-50">
+    <nav class="navbar-glass sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center gap-2 group">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo DecoLiving" class="h-10 w-auto transition-transform group-hover:scale-105 brightness-0 invert">
@@ -45,7 +59,7 @@
             <div class="hidden md:flex items-center flex-1 max-w-lg mx-8">
                 <form action="{{ route('home') }}" method="GET" class="w-full relative">
                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari sofa, meja, atau dekorasi..." class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none text-sm bg-white">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari sofa, meja, atau dekorasi..." class="search-bar w-full pl-10 pr-4 py-2.5 text-sm">
                 </form>
             </div>
 
@@ -84,8 +98,8 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="text-sm text-white hover:text-blue-100 font-medium">Masuk</a>
-                    <a href="{{ route('register') }}" class="px-5 py-2 bg-white text-primary-500 rounded-lg text-sm font-semibold hover:bg-blue-50 transition">Daftar</a>
+                    <a href="{{ route('login') }}" class="text-sm text-blue-200 hover:text-white font-medium transition">Masuk</a>
+                    <a href="{{ route('register') }}" class="px-5 py-2 btn-primary rounded-lg text-sm font-semibold">Daftar</a>
                 @endauth
             </div>
         </div>
@@ -94,19 +108,20 @@
     @unless(request('search') || request('category'))
     {{-- ===== HERO SECTION ===== --}}
     <section class="relative min-h-[520px] flex items-center overflow-hidden">
-        <img src="{{ asset('img/hero-bg.png') }}" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
+        <img src="{{ asset('img/hero-bg.png') }}" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover opacity-30">
         <div class="hero-overlay absolute inset-0"></div>
         <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 w-full">
             <div class="max-w-xl fade-up">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-                    Wujudkan Ruang<br><span class="text-primary-500 italic">Nyaman</span> Impianmu
+                <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-white" style="background:linear-gradient(135deg,#2563eb,#0ea5e9)">✨ Koleksi Terbaru 2026</span>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                    Wujudkan Ruang<br><span class="gradient-text">Nyaman</span> Impianmu
                 </h1>
-                <p class="text-gray-600 text-lg mb-8 leading-relaxed">Koleksi furnitur eksklusif dengan desain modern dan kualitas premium untuk setiap sudut hunian Anda.</p>
-                <div class="flex gap-4">
-                    <a href="#produk" class="inline-flex items-center gap-2 px-7 py-3 bg-primary-500 text-white rounded-full font-semibold hover:bg-primary-600 transition shadow-lg shadow-primary-200">
+                <p class="text-blue-200 text-lg mb-8 leading-relaxed">Koleksi furnitur eksklusif dengan desain modern dan kualitas premium untuk setiap sudut hunian Anda.</p>
+                <div class="flex gap-4 flex-wrap">
+                    <a href="#produk" class="btn-primary inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold transition">
                         Belanja Sekarang <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
-                    <a href="#kategori" class="inline-flex items-center px-7 py-3 bg-white text-gray-700 rounded-full font-semibold border border-gray-200 hover:border-primary-300 hover:text-primary-500 transition">Lihat Katalog</a>
+                    <a href="#kategori" class="btn-outline inline-flex items-center px-7 py-3 rounded-full font-semibold transition">Lihat Katalog</a>
                 </div>
             </div>
         </div>
@@ -114,60 +129,60 @@
 
     {{-- ===== KATEGORI SECTION ===== --}}
     <section id="kategori" class="max-w-7xl mx-auto px-6 py-16">
-        <p class="text-primary-500 font-semibold text-sm tracking-widest uppercase mb-2">Kategori Kami</p>
-        <h2 class="text-3xl font-bold text-gray-900 mb-8">Telusuri Berdasarkan Kategori</h2>
+        <p class="text-cyan-400 font-semibold text-sm tracking-widest uppercase mb-2">Kategori Kami</p>
+        <h2 class="text-3xl font-bold text-white mb-8">Telusuri Berdasarkan Kategori</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
             {{-- Sofa --}}
-            <a href="{{ route('home', ['search' => 'Sofa']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Sofa']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 17h18M3 17V9a1 1 0 011-1h1a1 1 0 011 1v1h12V9a1 1 0 011-1h1a1 1 0 011 1v8M5 11v-1a4 4 0 014-4h6a4 4 0 014 4v1"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Sofa</p>
             </a>
             {{-- Meja --}}
-            <a href="{{ route('home', ['search' => 'Meja']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Meja']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 14h16M4 14l1 6M20 14l-1 6M6 14V8a2 2 0 012-2h8a2 2 0 012 2v6"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Meja</p>
             </a>
             {{-- Kursi --}}
-            <a href="{{ route('home', ['search' => 'Kursi']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Kursi']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 21l1-6h12l1 6M6 15V7a2 2 0 012-2h8a2 2 0 012 2v8M8 5V3m8 2V3"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Kursi</p>
             </a>
             {{-- Lemari --}}
-            <a href="{{ route('home', ['search' => 'Lemari']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Lemari']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="12" y1="3" x2="12" y2="12"/><line x1="10" y1="7" x2="10" y2="8"/><line x1="14" y1="7" x2="14" y2="8"/><line x1="12" y1="15" x2="12" y2="16"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Lemari</p>
             </a>
             {{-- Tempat Tidur --}}
-            <a href="{{ route('home', ['search' => 'Tempat Tidur']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Tempat Tidur']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 19h18M3 19v-4a2 2 0 012-2h14a2 2 0 012 2v4M5 13V8a2 2 0 012-2h2a2 2 0 012 2v5m-6 0h14"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Tempat Tidur</p>
             </a>
             {{-- Rak --}}
-            <a href="{{ route('home', ['search' => 'Rak']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Rak']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16M4 4v16M20 4v16M4 10h16M4 16h16"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Rak</p>
             </a>
             {{-- Laci/Kabinet --}}
-            <a href="{{ route('home', ['search' => 'Laci']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Laci']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="16" x2="15" y2="16"/></svg>
                 </div>
                 <p class="font-semibold text-gray-800 text-sm group-hover:text-white">Laci/Kabinet</p>
             </a>
             {{-- Dekorasi --}}
-            <a href="{{ route('home', ['search' => 'Dekorasi']) }}" class="cat-card bg-white border border-gray-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer group">
+            <a href="{{ route('home', ['search' => 'Dekorasi']) }}" class="cat-card rounded-2xl p-6 text-center cursor-pointer group">
                 <div class="w-12 h-12 mx-auto mb-3 flex items-center justify-center text-primary-500 group-hover:text-white">
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.5 4.5H18l-3.5 2.5L16 14.5 12 11.5 8 14.5l1.5-4.5L6 7.5h4.5L12 3zM5 20h14"/></svg>
                 </div>
@@ -178,12 +193,12 @@
     @endunless
 
     {{-- ===== PRODUK UNGGULAN ===== --}}
-    <section id="produk" class="bg-gradient-to-b from-gray-50 to-white py-16">
+    <section id="produk" class="py-16">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                 <div>
-                    <p class="text-primary-500 font-semibold text-sm tracking-widest uppercase mb-2">Produk Terlaris</p>
-                    <h2 class="text-3xl font-bold text-gray-900">Pilihan Favorit Pelanggan</h2>
+                    <p class="text-cyan-400 font-semibold text-sm tracking-widest uppercase mb-2">Produk Terlaris</p>
+                    <h2 class="text-3xl font-bold text-white">Pilihan Favorit Pelanggan</h2>
                 </div>
                 @if(!request()->has('view_all'))
                     <a href="{{ route('home', ['view_all' => 1]) }}" class="text-sm text-primary-600 hover:text-primary-800 font-semibold">Lihat Semua</a>
@@ -203,13 +218,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($products as $product)
-                <a href="{{ route('product.show', $product->id) }}" class="bg-white rounded-2xl overflow-hidden card-hover shadow-sm border border-gray-100 block">
+                <a href="{{ route('product.show', $product->id) }}" class="glass-card overflow-hidden card-hover block rounded-2xl">
                     <div class="relative h-56 bg-gray-100 overflow-hidden">
                         @if($product->image)
                             @php $imageUrl = str_starts_with($product->image, 'http') ? $product->image : asset('storage/'.$product->image); @endphp
                             <img src="{{ $imageUrl }}" alt="{{ $product->name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-gray-300">
+                            <div class="w-full h-full flex items-center justify-center text-blue-800">
                                 <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
                         @endif
@@ -220,19 +235,19 @@
                     <div class="p-5">
                         <div class="flex items-center gap-1 mb-2">
                             @for($i=0;$i<5;$i++)<svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>@endfor
-                            <span class="text-xs text-gray-400 ml-1">(4.8)</span>
+                            <span class="text-xs text-blue-300 ml-1">(4.8)</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 mb-1">{{ $product->name }}</h3>
-                        <p class="text-gray-500 text-sm mb-3 line-clamp-2">{{ Str::limit($product->description, 80) }}</p>
+                        <h3 class="font-bold text-lg text-white mb-1">{{ $product->name }}</h3>
+                        <p class="text-blue-300 text-sm mb-3 line-clamp-2">{{ Str::limit($product->description, 80) }}</p>
                         <div class="flex items-center justify-between mt-auto">
-                            <p class="text-primary-500 font-extrabold text-lg">RP {{ number_format($product->price, 0, ',', '.') }}</p>
-                            <span class="text-sm font-semibold text-primary-500 hover:text-primary-700 transition">Detail →</span>
+                            <p class="font-extrabold text-lg" style="background:linear-gradient(135deg,#60a5fa,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent">RP {{ number_format($product->price, 0, ',', '.') }}</p>
+                            <span class="text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition">Detail →</span>
                         </div>
                     </div>
                 </a>
                 @empty
-                <div class="col-span-full text-center py-16 text-gray-400">
-                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <div class="col-span-full text-center py-16 text-blue-400">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-blue-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                     <p class="text-lg font-medium">Belum ada produk tersedia</p>
                     <p class="text-sm mt-1">Silakan tambahkan produk via panel Admin.</p>
                 </div>
@@ -242,11 +257,13 @@
     </section>
 
     {{-- ===== CTA BANNER ===== --}}
-    <section class="bg-primary-500 py-20 mt-8">
-        <div class="max-w-3xl mx-auto px-6 text-center">
+    <section class="py-20 mt-8 relative overflow-hidden" style="background:linear-gradient(135deg,#1d4ed8 0%,#0ea5e9 60%,#06b6d4 100%)">
+        <div class="absolute inset-0 opacity-10"><div class="absolute -top-20 -left-20 w-96 h-96 bg-white rounded-full blur-3xl"></div><div class="absolute -bottom-20 -right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div></div>
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-block px-4 py-1.5 bg-white/20 text-white text-sm font-semibold rounded-full mb-4">🏠 Dipercaya Ribuan Keluarga</span>
             <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight">Lebih dari 10,000+ Rumah Telah Dipercantik oleh DecoLiving</h2>
-            <p class="text-blue-100 text-lg mb-8">Kami percaya bahwa kenyamanan berawal dari rumah. Temukan desain yang paling sesuai dengan kepribadian Anda.</p>
-            <a href="#produk" class="inline-block px-8 py-3 bg-white text-primary-500 rounded-full font-bold hover:bg-gray-100 transition shadow-lg">Lihat Katalog</a>
+            <p class="text-blue-100 text-lg mb-8">Kami percaya bahwa kenyamanan berawal dari rumah.</p>
+            <a href="#produk" class="inline-block px-8 py-3.5 bg-white font-bold rounded-full hover:bg-blue-50 transition shadow-lg" style="color:#1d4ed8">Lihat Katalog →</a>
         </div>
     </section>
 

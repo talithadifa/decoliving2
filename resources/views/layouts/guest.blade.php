@@ -40,17 +40,17 @@
             </div>
 
             {{-- Right: Form --}}
-            <div class="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 py-12 bg-gray-50">
+            <div class="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 py-12" style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%)">
                 <div class="lg:hidden mb-8">
                     <a href="/" class="flex items-center gap-2">
                         <img src="{{ asset('img/logo.png') }}" alt="Logo" class="h-12 w-auto">
                         <span class="text-2xl font-bold text-gray-900">DecoLiving</span>
                     </a>
                 </div>
-                <div class="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+                <div class="w-full max-w-md rounded-2xl p-8" style="background:rgba(30,58,138,0.3);backdrop-filter:blur(12px);border:1px solid rgba(96,165,250,0.2)">
                     {{ $slot }}
                 </div>
-                <p class="mt-6 text-xs text-gray-400">&copy; 2026 DecoLiving Indonesia</p>
+                <p class="mt-6 text-xs text-blue-500">&copy; 2026 DecoLiving Indonesia</p>
             </div>
         </div>
     </body>

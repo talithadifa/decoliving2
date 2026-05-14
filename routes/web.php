@@ -59,10 +59,9 @@ Route::middleware(['auth'])->group(function () {
     
     // Checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    
-    // 👇 INI YANG DIPERBAIKI: Nama rute diubah jadi checkout.process agar Blade tidak error
     Route::post('/checkout/process', [CheckoutController::class, 'store'])->name('checkout.process');
-    
+    Route::get('/checkout/finish', [CheckoutController::class, 'finish'])->name('checkout.finish');
+
     // Halaman Tracking Order
     Route::get('/orders/tracking', function () {
         $orders = Order::where('user_id', Auth::id())->latest()->get();
@@ -82,3 +81,9 @@ Route::get('/dashboard', function () {
 
 // Route bawaan Laravel Breeze
 require __DIR__.'/auth.php';
+
+// ==========================================
+// 5. MIDTRANS WEBHOOK NOTIFICATION
+// ==========================================
+Route::post('/midtrans/notification', [CheckoutController::class, 'notification'])
+    ->name('midtrans.notification');
